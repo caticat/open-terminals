@@ -1,8 +1,13 @@
 {
   "name": "open-terminals",
-  "displayName": "open terminals in vscode",
-  "description": "静默读取配置文件，按顺序在editor area打开多个终端并执行命令",
-  "version": "0.0.1",
+  "displayName": "open terminals",
+  "description": "Open multiple terminals in the editor area from a config file",
+  "publisher": "panjie039",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caticat/open-terminals"
+  },
   "engines": {
     "vscode": ">=1.80.0"
   },
@@ -32,7 +37,18 @@
         "key": "ctrl+alt+w",
         "when": "editorTextFocus || !terminalFocus"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Open Terminals",
+      "properties": {
+        "openTerminals.shellInitDelay": {
+          "type": "number",
+          "default": 500,
+          "minimum": 0,
+          "description": "Delay (ms) before sending command to each terminal, allowing the shell to initialize."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
