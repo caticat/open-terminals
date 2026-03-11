@@ -3,7 +3,7 @@
   "displayName": "open terminals",
   "description": "Open multiple terminals in the editor area from a config file",
   "publisher": "panjie039",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/caticat/open-terminals"
