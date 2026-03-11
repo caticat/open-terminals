@@ -1,4 +1,6 @@
 node_modules
-out
-*.js
-*.map
+src
+out/**/*.map
+*.ts
+tsconfig.json
+.vscode
