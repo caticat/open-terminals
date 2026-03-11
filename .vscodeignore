@@ -1,6 +1,7 @@
-node_modules
 src
 out/**/*.map
 *.ts
 tsconfig.json
 .vscode
+publish.ps1
+open-terminals.yml
