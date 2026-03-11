@@ -1,0 +1,7 @@
+- cwd: e:/dev
+  command: claude
+  name: Claude1
+- cwd: e:/dev
+  command: claude
+  args: [--help]
+  name: Claude2

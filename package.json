@@ -1,0 +1,50 @@
+{
+  "name": "open-terminals",
+  "displayName": "open terminals in vscode",
+  "description": "静默读取配置文件，按顺序在editor area打开多个终端并执行命令",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": ">=1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "open-terminals.run",
+        "title": "Open Terminals - Open (Editor Area)"
+      },
+      {
+        "command": "open-terminals.close",
+        "title": "Open Terminals - Close All"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "open-terminals.run",
+        "key": "ctrl+alt+t",
+        "when": "editorTextFocus || !terminalFocus"
+      },
+      {
+        "command": "open-terminals.close",
+        "key": "ctrl+alt+w",
+        "when": "editorTextFocus || !terminalFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "@types/js-yaml": "^4.0.5",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
