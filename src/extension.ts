@@ -45,12 +45,14 @@ export function activate(context: vscode.ExtensionContext) {
             shellPath: conf.shell,
             location: { viewColumn: vscode.ViewColumn.One }
           });
-          if (conf.command) {
-            const fullCmd = conf.args ? `${conf.command} ${conf.args.join(' ')}` : conf.command;
-            term.sendText(fullCmd, true);
-          }
           term.show();
           managedTerminals.push(term);
+          if (conf.command) {
+            const fullCmd = conf.args ? `${conf.command} ${conf.args.join(' ')}` : conf.command;
+            const delay = vscode.workspace.getConfiguration('openTerminals').get<number>('shellInitDelay', 500);
+            await new Promise(resolve => setTimeout(resolve, delay));
+            term.sendText(fullCmd, true);
+          }
         }
       } catch {}
     })
