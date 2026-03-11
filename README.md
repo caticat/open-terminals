@@ -2,6 +2,8 @@
 
 A VS Code extension that silently reads a configuration file and opens multiple terminals in the editor area in sequence.
 
+**Perfect for managing multiple Claude Code sessions** — define all your Claude instances once in a config file, then open them all with a single shortcut.
+
 [中文文档](#中文文档)
 
 ---
@@ -24,6 +26,31 @@ A VS Code extension that silently reads a configuration file and opens multiple 
 ## Configuration
 
 Place `open-terminals.yml` in your workspace root.
+
+### Example: Managing Multiple Claude Sessions
+
+A common use case is launching multiple Claude Code instances across different projects simultaneously:
+
+```yaml
+- name: claude - project-a
+  cwd: C:/projects/project-a
+  shell: bash
+  command: claude
+
+- name: claude - project-b
+  cwd: C:/projects/project-b
+  shell: bash
+  command: claude
+
+- name: claude - project-c
+  cwd: C:/projects/project-c
+  shell: bash
+  command: claude
+```
+
+Press `Ctrl+Alt+T` and all three Claude sessions open instantly in the editor area, each in its own project directory.
+
+### Full Example
 
 ```yaml
 - name: server                # optional — terminal tab name
@@ -51,15 +78,16 @@ Place `open-terminals.yml` in your workspace root.
 
 ## Usage
 
-1. Install dependencies: `npm install`
-2. Compile: `npm run compile`
-3. Press `F5` to launch, or run `Open Terminals - Open (Editor Area)` from the Command Palette
+1. Create `open-terminals.yml` in your workspace root (see configuration above)
+2. Press `Ctrl+Alt+T` or run `Open Terminals - Open (Editor Area)` from the Command Palette
 
 ---
 
 ## 中文文档
 
 VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终端。
+
+**非常适合管理多个 Claude Code 会话** —— 在配置文件中定义所有 Claude 实例，一个快捷键即可全部打开。
 
 ### 功能
 
@@ -79,6 +107,29 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 ### 配置示例
 
 在工作区根目录创建 `open-terminals.yml`：
+
+#### 场景：同时管理多个 Claude 会话
+
+```yaml
+- name: claude - 项目A
+  cwd: C:/projects/project-a
+  shell: bash
+  command: claude
+
+- name: claude - 项目B
+  cwd: C:/projects/project-b
+  shell: bash
+  command: claude
+
+- name: claude - 项目C
+  cwd: C:/projects/project-c
+  shell: bash
+  command: claude
+```
+
+按下 `Ctrl+Alt+T`，三个 Claude 会话立即在编辑区分别打开，各自位于对应的项目目录。
+
+#### 完整示例
 
 ```yaml
 - name: server
