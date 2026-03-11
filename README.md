@@ -78,8 +78,25 @@ Press `Ctrl+Alt+T` and all three Claude sessions open instantly in the editor ar
 
 ## Usage
 
-1. Create `open-terminals.yml` in your workspace root (see configuration above)
-2. Press `Ctrl+Alt+T` or run `Open Terminals - Open (Editor Area)` from the Command Palette
+### Open terminals
+
+1. Create `open-terminals.yml` in your workspace root (see [Configuration](#configuration) above)
+2. Use any of the following:
+   - Press `Ctrl+Alt+T`
+   - Open Command Palette (`Ctrl+Shift+P`) → type `Open Terminals - Open`
+
+All configured terminals will open in the **editor area** (not the bottom panel).
+
+### Close terminals
+
+- Press `Ctrl+Alt+W`
+- Or Command Palette → `Open Terminals - Close All`
+
+Only terminals opened by this extension are closed — your manually opened terminals are untouched.
+
+### No config file?
+
+If `open-terminals.yml` is not found, a single blank terminal opens in the editor area.
 
 ---
 
@@ -154,3 +171,25 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 | `shell`   | 否   | 使用的 Shell：`bash` / `powershell` / `cmd` 或完整路径       |
 | `command` | 否   | 终端打开后执行的命令                                         |
 | `args`    | 否   | 命令的参数列表                                               |
+
+### 使用方法
+
+**打开终端：**
+
+1. 在工作区根目录创建 `open-terminals.yml`（参考上方配置示例）
+2. 任选以下方式：
+   - 按下快捷键 `Ctrl+Alt+T`
+   - 打开命令面板（`Ctrl+Shift+P`），输入 `Open Terminals - Open`
+
+所有配置的终端将在**编辑区**（非底部面板）依次打开。
+
+**关闭终端：**
+
+- 按下快捷键 `Ctrl+Alt+W`
+- 或命令面板 → `Open Terminals - Close All`
+
+只会关闭插件自己打开的终端，手动打开的终端不受影响。
+
+**没有配置文件时：**
+
+若找不到 `open-terminals.yml`，插件会自动在编辑区打开一个空终端。
