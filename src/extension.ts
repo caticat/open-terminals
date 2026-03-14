@@ -8,7 +8,20 @@ interface TerminalConfig {
   command?: string;
   args?: string[];
   name?: string;
+  color?: string;
+  icon?: string;
 }
+
+const COLOR_MAP: Record<string, string> = {
+  black:   'terminal.ansiBlack',
+  red:     'terminal.ansiRed',
+  green:   'terminal.ansiGreen',
+  yellow:  'terminal.ansiYellow',
+  blue:    'terminal.ansiBlue',
+  magenta: 'terminal.ansiMagenta',
+  cyan:    'terminal.ansiCyan',
+  white:   'terminal.ansiWhite',
+};
 
 const managedTerminals: vscode.Terminal[] = [];
 
@@ -43,6 +56,8 @@ export function activate(context: vscode.ExtensionContext) {
             name: conf.name,
             cwd: conf.cwd,
             shellPath: conf.shell,
+            iconPath: conf.icon ? new vscode.ThemeIcon(conf.icon) : undefined,
+            color: conf.color ? new vscode.ThemeColor(COLOR_MAP[conf.color] ?? conf.color) : undefined,
             location: { viewColumn: vscode.ViewColumn.One }
           });
           term.show();

@@ -59,22 +59,30 @@ Press `Ctrl+Alt+T` and all three Claude sessions open instantly in the editor ar
   command: npm start          # optional — command to run
   args:                       # optional — arguments
     - --verbose
+  color: red                  # optional — tab color
+  icon: rocket                # optional — tab icon
 
 - name: client
   cwd: C:/projects/my-client
   shell: C:/Users/you/AppData/Local/Programs/Git/bin/bash.exe
   command: npm run dev
+  color: cyan
+  icon: code
 ```
 
 ### Fields
 
-| Field     | Required | Description                                                    |
-| --------- | -------- | -------------------------------------------------------------- |
-| `cwd`     | Yes      | Terminal working directory                                     |
-| `name`    | No       | Name shown on the terminal tab                                 |
-| `shell`   | No       | Shell: `bash`, `powershell`, `cmd`, or a full executable path  |
-| `command` | No       | Command to execute after the terminal opens                    |
-| `args`    | No       | Arguments passed to the command (list)                         |
+| Field     | Required | Description                                                                   |
+| --------- | -------- | ----------------------------------------------------------------------------- |
+| `cwd`     | Yes      | Terminal working directory                                                    |
+| `name`    | No       | Name shown on the terminal tab                                                |
+| `shell`   | No       | Shell: `bash`, `powershell`, `cmd`, or a full executable path                 |
+| `command` | No       | Command to execute after the terminal opens                                   |
+| `args`    | No       | Arguments passed to the command (list)                                        |
+| `color`   | No       | Tab color: `black` `red` `green` `yellow` `blue` `magenta` `cyan` `white`     |
+| `icon`    | No       | Tab icon: any VS Code codicon name, e.g. `heart` `star` `rocket` `terminal`   |
+
+> Full icon list: <https://microsoft.github.io/vscode-codicons/dist/codicon.html>
 
 ## Usage
 
@@ -164,13 +172,17 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 
 ### 字段说明
 
-| 字段      | 必填 | 说明                                                         |
-| --------- | ---- | ------------------------------------------------------------ |
-| `cwd`     | 是   | 终端工作目录                                                 |
-| `name`    | 否   | 终端标签页名称                                               |
-| `shell`   | 否   | 使用的 Shell：`bash` / `powershell` / `cmd` 或完整路径       |
-| `command` | 否   | 终端打开后执行的命令                                         |
-| `args`    | 否   | 命令的参数列表                                               |
+| 字段      | 必填 | 说明                                                                              |
+| --------- | ---- | --------------------------------------------------------------------------------- |
+| `cwd`     | 是   | 终端工作目录                                                                      |
+| `name`    | 否   | 终端标签页名称                                                                    |
+| `shell`   | 否   | 使用的 Shell：`bash` / `powershell` / `cmd` 或完整路径                            |
+| `command` | 否   | 终端打开后执行的命令                                                              |
+| `args`    | 否   | 命令的参数列表                                                                    |
+| `color`   | 否   | 标签页颜色：`black` `red` `green` `yellow` `blue` `magenta` `cyan` `white`        |
+| `icon`    | 否   | 标签页图标：任意 VS Code codicon 名称，如 `heart` `star` `rocket` `terminal`      |
+
+> 完整图标列表：<https://microsoft.github.io/vscode-codicons/dist/codicon.html>
 
 ### 使用方法
 
