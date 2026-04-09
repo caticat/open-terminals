@@ -26,6 +26,10 @@
       {
         "command": "open-terminals.close",
         "title": "Open Terminals - Close All"
+      },
+      {
+        "command": "open-terminals.runOne",
+        "title": "Open Terminals - Open One (Select)"
       }
     ],
     "keybindings": [
