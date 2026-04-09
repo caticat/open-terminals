@@ -25,6 +25,25 @@ const COLOR_MAP: Record<string, string> = {
 
 const managedTerminals: vscode.Terminal[] = [];
 
+async function openTerminal(conf: TerminalConfig, managedTerminals: vscode.Terminal[]): Promise<void> {
+  const term = vscode.window.createTerminal({
+    name: conf.name,
+    cwd: conf.cwd,
+    shellPath: conf.shell,
+    iconPath: conf.icon ? new vscode.ThemeIcon(conf.icon) : undefined,
+    color: conf.color ? new vscode.ThemeColor(COLOR_MAP[conf.color] ?? conf.color) : undefined,
+    location: { viewColumn: vscode.ViewColumn.One }
+  });
+  term.show();
+  managedTerminals.push(term);
+  if (conf.command) {
+    const fullCmd = conf.args ? `${conf.command} ${conf.args.join(' ')}` : conf.command;
+    const delay = vscode.workspace.getConfiguration('openTerminals').get<number>('shellInitDelay', 500);
+    await new Promise(resolve => setTimeout(resolve, delay));
+    term.sendText(fullCmd, true);
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   // 当 terminal 被外部关闭时，从列表中移除
   context.subscriptions.push(
@@ -52,22 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
         const configs = yaml.load(fileContent) as TerminalConfig[];
         if (!Array.isArray(configs)) return;
         for (const conf of configs) {
-          const term = vscode.window.createTerminal({
-            name: conf.name,
-            cwd: conf.cwd,
-            shellPath: conf.shell,
-            iconPath: conf.icon ? new vscode.ThemeIcon(conf.icon) : undefined,
-            color: conf.color ? new vscode.ThemeColor(COLOR_MAP[conf.color] ?? conf.color) : undefined,
-            location: { viewColumn: vscode.ViewColumn.One }
-          });
-          term.show();
-          managedTerminals.push(term);
-          if (conf.command) {
-            const fullCmd = conf.args ? `${conf.command} ${conf.args.join(' ')}` : conf.command;
-            const delay = vscode.workspace.getConfiguration('openTerminals').get<number>('shellInitDelay', 500);
-            await new Promise(resolve => setTimeout(resolve, delay));
-            term.sendText(fullCmd, true);
-          }
+          await openTerminal(conf, managedTerminals);
         }
       } catch {}
     })
