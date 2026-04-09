@@ -83,6 +83,43 @@ export function activate(context: vscode.ExtensionContext) {
       managedTerminals.length = 0;
     })
   );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('open-terminals.runOne', async () => {
+      const configPath = vscode.workspace.workspaceFolders?.[0]
+        ? vscode.workspace.workspaceFolders[0].uri.fsPath + '/open-terminals.yml'
+        : undefined;
+
+      if (!configPath || !fs.existsSync(configPath)) {
+        vscode.window.showErrorMessage('open-terminals: config file not found (open-terminals.yml)');
+        return;
+      }
+
+      let configs: TerminalConfig[];
+      try {
+        const fileContent = fs.readFileSync(configPath, 'utf8');
+        const parsed = yaml.load(fileContent);
+        if (!Array.isArray(parsed) || parsed.length === 0) return;
+        configs = parsed as TerminalConfig[];
+      } catch {
+        return;
+      }
+
+      const items = configs.map((conf, index) => ({
+        label: conf.name ?? conf.cwd,
+        description: conf.name ? conf.cwd : undefined,
+        index,
+      }));
+
+      const selected = await vscode.window.showQuickPick(items, {
+        placeHolder: 'Select a terminal to open',
+      });
+
+      if (!selected) return;
+
+      await openTerminal(configs[selected.index], managedTerminals);
+    })
+  );
 }
 
 export function deactivate() {}
