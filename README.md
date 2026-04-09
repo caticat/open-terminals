@@ -21,6 +21,7 @@ A VS Code extension that silently reads a configuration file and opens multiple 
 | Command                                | Shortcut         | Description                                       |
 | -------------------------------------- | ---------------- | ------------------------------------------------- |
 | `Open Terminals - Open (Editor Area)`  | `Ctrl+Alt+T`     | Read config and open terminals                    |
+| `Open Terminals - Open One (Select)`   | —                | Show a list and open the selected terminal        |
 | `Open Terminals - Close All`           | `Ctrl+Alt+W`     | Close only terminals opened by this extension     |
 
 ## Configuration
@@ -124,10 +125,11 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 
 ### 命令
 
-| 命令                                   | 快捷键           | 说明                     |
-| -------------------------------------- | ---------------- | ------------------------ |
-| `Open Terminals - Open (Editor Area)`  | `Ctrl+Alt+T`     | 读取配置并开启终端       |
-| `Open Terminals - Close All`           | `Ctrl+Alt+W`     | 只关闭插件开启的终端     |
+| 命令                                   | 快捷键           | 说明                             |
+| -------------------------------------- | ---------------- | -------------------------------- |
+| `Open Terminals - Open (Editor Area)`  | `Ctrl+Alt+T`     | 读取配置并开启终端               |
+| `Open Terminals - Open One (Select)`   | —                | 弹出列表，选择并开启单个终端     |
+| `Open Terminals - Close All`           | `Ctrl+Alt+W`     | 只关闭插件开启的终端             |
 
 ### 配置示例
 
