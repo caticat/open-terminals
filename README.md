@@ -10,7 +10,8 @@ A VS Code extension that silently reads a configuration file and opens multiple 
 
 ## Features
 
-- Reads `open-terminals.yml` from the workspace root
+- Reads `open-terminals.yml` from the workspace root or `.vscode/open-terminals.yml`
+- Prefers `.vscode/open-terminals.yml` when both files exist
 - Opens terminals in the **editor area** (not the panel)
 - Configurable per terminal: working directory, shell, command, args, and name
 - If no config file is found, opens a single blank terminal
@@ -26,7 +27,7 @@ A VS Code extension that silently reads a configuration file and opens multiple 
 
 ## Configuration
 
-Place `open-terminals.yml` in your workspace root.
+Place `open-terminals.yml` in your workspace root, or put it under `.vscode/open-terminals.yml` if you want the config to live alongside editor settings and stay easy to ignore in git.
 
 ### Example: Managing Multiple Claude Sessions
 
@@ -89,7 +90,7 @@ Press `Ctrl+Alt+T` and all three Claude sessions open instantly in the editor ar
 
 ### Open terminals
 
-1. Create `open-terminals.yml` in your workspace root (see [Configuration](#configuration) above)
+1. Create `open-terminals.yml` in your workspace root, or create `.vscode/open-terminals.yml` (see [Configuration](#configuration) above)
 2. Use any of the following:
    - Press `Ctrl+Alt+T`
    - Open Command Palette (`Ctrl+Shift+P`) → type `Open Terminals - Open`
@@ -117,7 +118,8 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 
 ### 功能
 
-- 从工作区根目录读取 `open-terminals.yml`
+- 从工作区根目录或 `.vscode/open-terminals.yml` 读取 `open-terminals.yml`
+- 如果两个文件同时存在，优先使用 `.vscode/open-terminals.yml`
 - 在**编辑区**（非底部面板）打开终端
 - 每个终端可单独配置：工作目录、Shell 类型、命令、参数、名称
 - 没有配置文件时，自动开启一个空终端
@@ -133,7 +135,7 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 
 ### 配置示例
 
-在工作区根目录创建 `open-terminals.yml`：
+在工作区根目录创建 `open-terminals.yml`，或者放到 `.vscode/open-terminals.yml`：
 
 #### 场景：同时管理多个 Claude 会话
 
@@ -190,7 +192,7 @@ VS Code 扩展，静默读取配置文件，按顺序在编辑区打开多个终
 
 **打开终端：**
 
-1. 在工作区根目录创建 `open-terminals.yml`（参考上方配置示例）
+1. 在工作区根目录创建 `open-terminals.yml`，或者创建 `.vscode/open-terminals.yml`（参考上方配置示例）
 2. 任选以下方式：
    - 按下快捷键 `Ctrl+Alt+T`
    - 打开命令面板（`Ctrl+Shift+P`），输入 `Open Terminals - Open`

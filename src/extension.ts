@@ -24,6 +24,7 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 const managedTerminals: vscode.Terminal[] = [];
+const CONFIG_FILE_NAME = 'open-terminals.yml';
 
 async function openTerminal(conf: TerminalConfig, managedTerminals: vscode.Terminal[]): Promise<void> {
   const term = vscode.window.createTerminal({
@@ -44,6 +45,35 @@ async function openTerminal(conf: TerminalConfig, managedTerminals: vscode.Termi
   }
 }
 
+function getConfigPath(): string | undefined {
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+  if (!workspaceFolder) return undefined;
+
+  const candidates = [
+    vscode.Uri.joinPath(workspaceFolder.uri, '.vscode', CONFIG_FILE_NAME),
+    vscode.Uri.joinPath(workspaceFolder.uri, CONFIG_FILE_NAME),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate.fsPath)) {
+      return candidate.fsPath;
+    }
+  }
+
+  return undefined;
+}
+
+function loadConfigs(configPath: string): TerminalConfig[] | undefined {
+  try {
+    const fileContent = fs.readFileSync(configPath, 'utf8');
+    const parsed = yaml.load(fileContent);
+    if (!Array.isArray(parsed) || parsed.length === 0) return undefined;
+    return parsed as TerminalConfig[];
+  } catch {
+    return undefined;
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   // 当 terminal 被外部关闭时，从列表中移除
   context.subscriptions.push(
@@ -55,25 +85,20 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('open-terminals.run', async () => {
-      const configPath = vscode.workspace.workspaceFolders?.[0]
-        ? vscode.workspace.workspaceFolders[0].uri.fsPath + '/open-terminals.yml'
-        : undefined;
-
-      if (!configPath || !fs.existsSync(configPath)) {
+      const configPath = getConfigPath();
+      if (!configPath) {
         const term = vscode.window.createTerminal({ location: { viewColumn: vscode.ViewColumn.One } });
         term.show();
         managedTerminals.push(term);
         return;
       }
 
-      try {
-        const fileContent = fs.readFileSync(configPath, 'utf8');
-        const configs = yaml.load(fileContent) as TerminalConfig[];
-        if (!Array.isArray(configs)) return;
-        for (const conf of configs) {
-          await openTerminal(conf, managedTerminals);
-        }
-      } catch {}
+      const configs = loadConfigs(configPath);
+      if (!configs) return;
+
+      for (const conf of configs) {
+        await openTerminal(conf, managedTerminals);
+      }
     })
   );
 
@@ -86,22 +111,14 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('open-terminals.runOne', async () => {
-      const configPath = vscode.workspace.workspaceFolders?.[0]
-        ? vscode.workspace.workspaceFolders[0].uri.fsPath + '/open-terminals.yml'
-        : undefined;
-
-      if (!configPath || !fs.existsSync(configPath)) {
-        vscode.window.showErrorMessage('open-terminals: config file not found (open-terminals.yml)');
+      const configPath = getConfigPath();
+      if (!configPath) {
+        vscode.window.showErrorMessage('open-terminals: config file not found (.vscode/open-terminals.yml or open-terminals.yml)');
         return;
       }
 
-      let configs: TerminalConfig[];
-      try {
-        const fileContent = fs.readFileSync(configPath, 'utf8');
-        const parsed = yaml.load(fileContent);
-        if (!Array.isArray(parsed) || parsed.length === 0) return;
-        configs = parsed as TerminalConfig[];
-      } catch {
+      const configs = loadConfigs(configPath);
+      if (!configs) {
         return;
       }
 
